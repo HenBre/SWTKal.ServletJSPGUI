@@ -2,6 +2,7 @@ package servletPackage;
 
 import java.io.IOException;
 import java.util.Date;
+import java.lang.String;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,17 +43,17 @@ public class DoCheckLogin extends HttpServlet {
 					session.invalidate();
 				}
 				
-				// Zurück zum Login
+				// Zur?ck zum Login
 				response.sendRedirect(redir_bad);
 			}
 			else
 			{				
-				// Übergabeparameter für Login
+				// ?bergabeparameter f?r Login
 				String krz = request.getParameter("login_name");
 				String pw = request.getParameter("login_pw");				
 				
 				try {
-					// Wenn es eine Person zum Kürzel gibt
+					// Wenn es eine Person zum K?rzel gibt
 					Person p = dgs.srvobj().authenticatePerson(krz, pw);
 					//Bezugsdatum (Heute)
 					Datum bezug = new Datum(new Date());
@@ -64,14 +65,14 @@ public class DoCheckLogin extends HttpServlet {
 					session.setAttribute("loggedin", "1");
 					session.setAttribute("bezDatum", bezug);
 					
-					// Zur Übersicht weiterleiten
+					// Zur ?bersicht weiterleiten
 					response.sendRedirect(redir_ok);
 				} catch (PersonException pe) {
 					
 					// Falls keine Person, Session wieder weg
 					session.invalidate();					
 					
-					// Zurück zur Loginseite
+					// Zur?ck zur Loginseite
 					response.sendRedirect(redir_bad);
 					}
 			}
